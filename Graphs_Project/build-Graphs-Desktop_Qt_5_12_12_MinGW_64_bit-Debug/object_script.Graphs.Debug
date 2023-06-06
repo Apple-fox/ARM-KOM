@@ -1,0 +1,11 @@
+debug/edge.o
+debug/main.o
+debug/graphs.o
+debug/moveitem.o
+debug/question.o
+debug/rib.o
+debug/travelling.o
+debug/vertex.o
+debug/moc_graphs.o
+debug/moc_moveitem.o
+debug/moc_question.o

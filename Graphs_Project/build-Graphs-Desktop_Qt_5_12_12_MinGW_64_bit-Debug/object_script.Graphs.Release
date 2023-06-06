@@ -1,0 +1,11 @@
+release/edge.o
+release/main.o
+release/graphs.o
+release/moveitem.o
+release/question.o
+release/rib.o
+release/travelling.o
+release/vertex.o
+release/moc_graphs.o
+release/moc_moveitem.o
+release/moc_question.o
