@@ -54,6 +54,16 @@ bool Graphs::pathExist(Vertex* f, Vertex* s){//Существует ребро �
     return false;
 }
 
+void Graphs::init(int** r){
+    for(int i=0;i<vertexList.size();i++)
+    {
+        for(int j=0;j<vertexList.size();j++)
+        {
+            r[i][j]=-1;
+        }
+    }
+}
+
 
 QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммивояжера
 {
@@ -71,14 +81,11 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
     }
     int minRow[vertexList.size()];
     int minCol[vertexList.size()];
-    int HighScoreMatrix[vertexList.size()][vertexList.size()];
-    for(int i=0;i<vertexList.size();i++)
-    {
-        for(int j=0;j<vertexList.size();j++)
-        {
-            HighScoreMatrix[i][j]=-1;
-        }
+    int** HighScoreMatrix = new int*[vertexList.size()];
+    for(int i = 0; i < vertexList.size(); i++){
+        HighScoreMatrix[i] = new int[vertexList.size()];
     }
+    init(HighScoreMatrix);
     for(int i=0;i<vertexList.size();i++)
     {
         for(int j=0;j<vertexList.size();j++)
@@ -95,13 +102,7 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
     }
     for(int k=0;k<vertexList.size();k++)
     {
-        for(int i=0;i<vertexList.size();i++)
-        {
-            for(int j=0;j<vertexList.size();j++)
-            {
-                HighScoreMatrix[i][j]=-1;
-            }
-        }
+        init(HighScoreMatrix);
         for(int i=0;i<vertexList.size();i++)
         {
             minRow[i]=matrix[i][0];
@@ -425,4 +426,3 @@ void Graphs::on_question_btn_clicked()//справка
     Question * q = new Question(nullptr);
     q->show();
 }
-
