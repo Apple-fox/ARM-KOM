@@ -27,7 +27,7 @@ Graphs::~Graphs()
     delete ui;
 }
 
-int getHighScore(QVector<QVector<int>> matrix, int posi, int posj,int n){//функция для получения оценки
+int getHighScore(QVector<QVector<int>> matrix, int posi, int posj,int n){
     int minj = matrix[posi][0];
     int mini = matrix[0][posj];
     for(int j=1;j<n;j++)
@@ -57,10 +57,9 @@ bool Graphs::pathExist(Vertex* f, Vertex* s){//Существует ребро �
 
 QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммивояжера
 {
-    QVector<QPair<int,int>> res;//результат,куда будет записываться путь в виде пар,например (1,2),(3,4),(4,2) и т.д
+    QVector<QPair<int,int>> res;
     ui->info_label->setText(" ");
-    QVector<QVector<int>> matrix;//матрица смежности
-    //Инициализация матрицы смежности
+    QVector<QVector<int>> matrix;
     for(int i=0;i<vertexList.size();i++)
     {
         QVector<int> vec;
@@ -70,10 +69,9 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
             matrix[i].push_back(0);
         }
     }
-    int minRow[vertexList.size()];//массив минимального значения по строкам
-    int minCol[vertexList.size()];//массив минимального значения по столбцам
-    int HighScoreMatrix[vertexList.size()][vertexList.size()];//Матрица оценок
-    //Заполняем матрицу оценок
+    int minRow[vertexList.size()];
+    int minCol[vertexList.size()];
+    int HighScoreMatrix[vertexList.size()][vertexList.size()];
     for(int i=0;i<vertexList.size();i++)
     {
         for(int j=0;j<vertexList.size();j++)
@@ -81,7 +79,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
             HighScoreMatrix[i][j]=-1;
         }
     }
-    //Заполняем матрицу смежности
     for(int i=0;i<vertexList.size();i++)
     {
         for(int j=0;j<vertexList.size();j++)
@@ -96,10 +93,8 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
             }
         }
     }
-    //Цикл,если после первого обхода не получится составить кратчайший путь
     for(int k=0;k<vertexList.size();k++)
     {
-        //Заполняем матрицу оценок
         for(int i=0;i<vertexList.size();i++)
         {
             for(int j=0;j<vertexList.size();j++)
@@ -107,7 +102,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
                 HighScoreMatrix[i][j]=-1;
             }
         }
-        //Ищем минимальное значение в каждой строке
         for(int i=0;i<vertexList.size();i++)
         {
             minRow[i]=matrix[i][0];
@@ -123,7 +117,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
                 minRow[i]=0;
             }
         }
-        //Редукция
         for(int i=0;i<vertexList.size();i++)
         {
             for(int j=0;j<vertexList.size();j++)
@@ -134,7 +127,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
                 }
             }
         }
-        //Ищем минимальное значение в каждом столбце
         for(int i=0;i<vertexList.size();i++)
         {
             minCol[i]=matrix[0][i];
@@ -150,7 +142,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
                 minCol[i]=0;
             }
         }
-        //Редукция
         for(int i=0;i<vertexList.size();i++)
         {
             for(int j=0;j<vertexList.size();j++)
@@ -161,7 +152,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
                 }
             }
         }
-        //Ищем оценку для каждого нуля
         for(int i=0;i<vertexList.size();i++)
         {
             for(int j=0;j<vertexList.size();j++)
@@ -172,11 +162,9 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
                 }
             }
         }
-        //Координаты нуля с наибольшей оценкой
         int maxNull = -1;
         int maxNulli = 0;
         int maxNullj = 0;
-        //Ищем наибольшую оценку
         for(int i=0;i<vertexList.size();i++)
         {
             for(int j=0;j<vertexList.size();j++)
@@ -189,7 +177,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
                 }
             }
         }
-        //Редукция
         for(int i=0;i<vertexList.size();i++)
         {
             matrix[i][maxNullj] = 100000000;
@@ -204,7 +191,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
         p.second=maxNullj;
         res.push_back(p);
     }
-    //Вектор,в котором в правильном порядке выстраивается кратчайший путь
     int path[vertexList.size()+1];
     for(int i=0;i<vertexList.size()+1;i++)
     {
@@ -224,7 +210,6 @@ QString Graphs::travellingSalesman(int vertexIndex)//Задача Коммиво
             }
         }
     }
-    //Переменная,в которую запишется сумма кратчайшего пути
     int sum=0;
     for(int i=0;i<vertexList.size();i++)
     {
